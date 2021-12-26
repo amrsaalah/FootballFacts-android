@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:startDestination="@id/countriesFragment">
+
+    <fragment
+        android:id="@+id/countriesFragment"
+        android:name="com.football.facts.ui.main.home.countries.CountriesFragment"
+        android:label="countriesFragment" >
+        <action
+            android:id="@+id/action_to_leaguesFragment"
+            app:destination="@id/leaguesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchTeamsFragment"
+        android:name="com.football.facts.ui.main.home.searchTeams.SearchTeamsFragment"
+        android:label="searchTeamsFragment" />
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.football.facts.ui.main.home.favorites.FavoritesFragment"
+        android:label="FavoritesFragment" />
+
+    <fragment
+        android:id="@+id/leaguesFragment"
+        android:name="com.football.facts.ui.main.home.leagues.LeaguesFragment"
+        android:label="LeaguesFragment" >
+        <argument
+            android:name="country"
+            app:argType="com.football.facts.domain.entity.Country" />
+    </fragment>
+</navigation>
