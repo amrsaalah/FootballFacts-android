@@ -6,8 +6,7 @@ import androidx.fragment.app.viewModels
 import com.football.facts.R
 import com.football.facts.databinding.FragmentTeamsSearchBinding
 import com.football.facts.ui.base.BaseFragment
-import com.football.facts.ui.main.home.leagues.LeaguesScreen
-import com.football.facts.ui.theme.ComposeSkeletonTheme
+import com.football.facts.ui.theme.FootballFactsTheme
 import com.football.facts.ui.utils.viewBinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,7 +20,7 @@ class SearchTeamsFragment : BaseFragment(R.layout.fragment_teams_search) {
 
         binding.composeView.apply {
             setContent {
-                ComposeSkeletonTheme {
+                FootballFactsTheme {
                     SearchTeamsScreen(viewModel)
                 }
             }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">@color/teal_700</color>
+    <color name="colorPrimaryVariant">@color/teal_200</color>
+    <color name="colorOnPrimary">@color/black</color>
+
+    <color name="colorSecondary">@color/purple_700</color>
+    <color name="colorSecondaryVariant">@color/purple_500</color>
+    <color name="colorOnSecondary">@color/white</color>
+
+    <color name="colorControlNormal">@color/purple_500</color>
+
+    <color name="splashBackground">@color/teal_700</color>
+
+    <color name="textPrimary">@color/white</color>
+</resources>

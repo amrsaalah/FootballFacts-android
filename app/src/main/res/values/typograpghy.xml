@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="TextAppearance.ComposeSkeleton.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
+    <style name="TextAppearance.FootballFacts.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="android:textSize">30sp</item>
-        <item name="android:textColor">@color/black</item>
         <item name="fontFamily">sans-serif</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
+
+
+    <style name="TextAppearance.FootballFacts.Headline2" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="android:textSize">18sp</item>
+        <item name="fontFamily">sans-serif</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+
+    <style name="TextAppearance.FootballFacts.Headline3" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">sans-serif</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+
 </resources>

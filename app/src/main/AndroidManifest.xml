@@ -7,7 +7,7 @@
 
 
     <application
-        android:name=".ComposeApplication"
+        android:name=".FootballApplication"
         android:allowBackup="true"
         android:fullBackupOnly="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,7 +15,7 @@
         android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ComposeSkeleton.Splash">
+        android:theme="@style/Theme.FootballFacts.Splash">
         <activity
             android:name="com.football.facts.ui.main.home.HomeActivity"
             android:exported="true"

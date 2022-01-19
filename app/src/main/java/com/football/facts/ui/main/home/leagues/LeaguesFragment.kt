@@ -7,7 +7,7 @@ import com.football.facts.R
 import com.football.facts.databinding.FragmentLeaguesBinding
 import com.football.facts.domain.entity.Country
 import com.football.facts.ui.base.BaseFragment
-import com.football.facts.ui.theme.ComposeSkeletonTheme
+import com.football.facts.ui.theme.FootballFactsTheme
 import com.football.facts.ui.utils.viewBinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -31,7 +31,7 @@ class LeaguesFragment : BaseFragment(R.layout.fragment_leagues) {
 
         binding.composeView.apply {
             setContent {
-                ComposeSkeletonTheme {
+                FootballFactsTheme {
                     LeaguesScreen(viewModel)
                 }
             }

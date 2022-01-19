@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">ComposeSkeleton</string>
+    <string name="app_name">Football Facts</string>
 
     <string name="api_status_failed">Max number of requests has been exceeded</string>
 
+    <string name="search_teams_search">Search… (min 4 chars)</string>
+
+    <string name="favorites_leagues_header">Leagues</string>
+    <string name="favorites_teams_header">Teams</string>
 </resources>

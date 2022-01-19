@@ -1,6 +1,7 @@
 package com.football.facts.di
 
 import android.content.Context
+import com.football.facts.ui.utils.broadcast.BroadcastManager
 import com.football.facts.ui.utils.navigation.NavigationManager
 import com.football.facts.ui.utils.notification.ToastManager
 import com.football.facts.ui.utils.resource.ResourceProvider
@@ -31,5 +32,11 @@ class AppModule {
     @Provides
     fun provideResourceProvider(@ApplicationContext context: Context) : ResourceProvider{
         return ResourceProvider(context)
+    }
+
+    @Singleton
+    @Provides
+    fun provideBroadcastManager() : BroadcastManager{
+        return BroadcastManager()
     }
 }

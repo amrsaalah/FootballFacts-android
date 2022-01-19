@@ -27,6 +27,7 @@ class HomeActivity : BaseActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // there is a bug in splashscreen API library with Xiaomi devices in dark mode , hopefully it is fixed soon.  https://stackoverflow.com/questions/70619915/splash-screen-api-not-support-in-dark-mode
         installSplashScreen()
         super.onCreate(savedInstanceState)
 

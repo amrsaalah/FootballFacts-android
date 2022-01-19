@@ -46,7 +46,7 @@ data class LeaguesDisplay(
                 leagues = listOf(
                     LeagueDisplayItem(
                         id = "1",
-                        name = "Premier league Premier league Premier league Premier league Premier league",
+                        name = "Premier league",
                         icon = null,
                         isFavorite = false
                     ),

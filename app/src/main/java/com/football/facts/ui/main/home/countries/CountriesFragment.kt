@@ -6,7 +6,7 @@ import androidx.fragment.app.viewModels
 import com.football.facts.R
 import com.football.facts.databinding.FragmentCountriesBinding
 import com.football.facts.ui.base.BaseFragment
-import com.football.facts.ui.theme.ComposeSkeletonTheme
+import com.football.facts.ui.theme.FootballFactsTheme
 import com.football.facts.ui.utils.viewBinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,7 +26,7 @@ class CountriesFragment : BaseFragment(R.layout.fragment_countries) {
 
         binding.composeView.apply {
             setContent {
-                ComposeSkeletonTheme {
+                FootballFactsTheme {
                     CountriesScreen(viewModel)
                 }
             }

@@ -19,13 +19,10 @@ class LeaguesViewModel @Inject constructor(
     private val updateLeagueFavoriteUseCase: UpdateLeagueFavoriteUseCase
 ) : BaseViewModel(), LeaguesScreenState {
 
-    companion object {
-        private const val TAG = "LeaguesViewModel"
-    }
 
     private lateinit var country: Country
     private val leaguesUseCase = MutableStateFlow<Flow<Resource<List<League>>>>(emptyFlow())
-    private val currentFavoriteItem = MutableStateFlow<Pair<LeagueDisplayItem, Boolean>?>(null)
+    private val currentFavoriteItem = MutableStateFlow<League?>(null)
     private val leaguesHashMap : LinkedHashMap<LeagueDisplayItem, League> = linkedMapOf()
 
     fun init(country: Country) {
@@ -42,23 +39,21 @@ class LeaguesViewModel @Inject constructor(
         viewModelScope.launch {
             updateLeagueFavoriteUseCase(league).collect { res ->
                 if (res.isSuccess()) {
-                    currentFavoriteItem.value = Pair(item, !item.isFavorite)
+                    currentFavoriteItem.value = res.data
                 }
             }
         }
     }
 
     override val leaguesDisplay = leaguesUseCase.flatMapLatest { useCase ->
-        combine(useCase, currentFavoriteItem) { res, currentFavoriteItem ->
+        combine(useCase, currentFavoriteItem) { res, currentFavLeague ->
             if (res.isSuccess()) {
                 leaguesHashMap.clear()
             }
 
             val leagues = res.data?.map { league ->
-                val currentFavLeague = currentFavoriteItem?.first
-                val currentFav = currentFavoriteItem?.second
                 val newIsFavorite = if (league.id == currentFavLeague?.id) {
-                    currentFav
+                    currentFavLeague.isFavorite
                 } else null
 
                 val item = LeagueDisplayItem(

@@ -23,4 +23,13 @@ interface FavoriteDao {
 
     @Query("DELETE from favorites where league_id = :leagueId")
     suspend fun deleteByLeagueId(leagueId : String)
+
+    @Query("DELETE from favorites where team_id = :teamId")
+    suspend fun deleteByTeamId(teamId : String)
+
+    @Query("SELECT * FROM favorites where league_id IS NOT NULL")
+    suspend fun getFavoriteLeagues() : List<FavoriteTable>
+
+    @Query("SELECT * FROM favorites where team_id IS NOT NULL")
+    suspend fun getFavoriteTeams() : List<FavoriteTable>
 }

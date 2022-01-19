@@ -3,28 +3,29 @@ package com.football.facts.domain.usecase
 import com.football.facts.domain.base.BaseUseCase
 import com.football.facts.domain.entity.Favorite
 import com.football.facts.domain.entity.League
+import com.football.facts.domain.entity.Team
 import com.football.facts.domain.repository.FootballRepository
 import com.football.facts.domain.valueObject.EFavoriteType
 import com.football.facts.domain.valueObject.Resource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class UpdateLeagueFavoriteUseCase @Inject constructor(
+class UpdateTeamFavoriteUseCase @Inject constructor(
     private val footballRepository: FootballRepository
 ) : BaseUseCase() {
 
-    operator fun invoke(league: League): Flow<Resource<League>> {
+    operator fun invoke(team: Team): Flow<Resource<Team>> {
         return safeCall {
             footballRepository.updateFavorite(
                 Favorite(
-                    id = league.id,
-                    name = league.name,
-                    icon = league.logoIcon,
-                    type = EFavoriteType.LEAGUE
-                ), !league.isFavorite
+                    id = team.id,
+                    name = team.name,
+                    icon = team.logoIcon,
+                    type = EFavoriteType.TEAM
+                ), !team.isFavorite
             )
-            league.isFavorite = !league.isFavorite
-            league
+            team.isFavorite = !team.isFavorite
+            team
         }
     }
 }

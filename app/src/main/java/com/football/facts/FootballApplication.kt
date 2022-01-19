@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
 import com.football.facts.ui.base.BaseActivity
-import com.football.facts.ui.utils.lifecycle.ComposeActivityLifecycleCallbacks
+import com.football.facts.ui.utils.lifecycle.FootballActivityLifecycleCallbacks
 import com.football.facts.ui.utils.locale.LocaleHelper
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
@@ -12,8 +12,8 @@ import timber.log.Timber.DebugTree
 
 
 @HiltAndroidApp
-class ComposeApplication : Application() {
-    val activityLifecycleCallbacks = ComposeActivityLifecycleCallbacks()
+class FootballApplication : Application() {
+    val activityLifecycleCallbacks = FootballActivityLifecycleCallbacks()
 
     override fun onCreate() {
         super.onCreate()
@@ -26,7 +26,7 @@ class ComposeApplication : Application() {
     }
 
     companion object {
-        private var instance: ComposeApplication? = null
+        private var instance: FootballApplication? = null
 
         fun getCurrentActivity(): BaseActivity? {
             val activity = instance?.activityLifecycleCallbacks?.currentActivity

@@ -1,6 +1,5 @@
 package com.football.facts.ui.main.home.searchTeams
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -14,19 +13,20 @@ import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.football.facts.R
-import com.football.facts.ui.theme.H1
-import com.football.facts.ui.theme.Purple200
-import com.football.facts.ui.theme.White
+import com.football.facts.ui.theme.FootballFactsTheme
+import com.football.facts.ui.theme.appColors
 
 @Composable
 fun SearchTeamsScreen(state: SearchTeamsScreenState) {
@@ -34,7 +34,7 @@ fun SearchTeamsScreen(state: SearchTeamsScreenState) {
     Box(
         Modifier
             .fillMaxSize()
-            .background(White)
+            .background(MaterialTheme.colors.background)
     ) {
 
         LazyColumn(Modifier.fillMaxSize()) {
@@ -44,9 +44,16 @@ fun SearchTeamsScreen(state: SearchTeamsScreenState) {
                     onValueChange = { value ->
                         state.onSearchQueryChanged(value)
                     },
-                    label = { Text("Search...") },
+                    label = {
+                        Text(
+                            stringResource(id = R.string.search_teams_search),
+                        )
+                    },
                     maxLines = 1,
-                    textStyle = TextStyle(color = Color.Blue, fontWeight = FontWeight.Bold),
+                    textStyle = TextStyle(fontSize = 20.sp, fontFamily = FontFamily.SansSerif),
+                    colors = TextFieldDefaults.textFieldColors(
+                        textColor = MaterialTheme.appColors.textSearch
+                    ),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(20.dp)
@@ -60,7 +67,8 @@ fun SearchTeamsScreen(state: SearchTeamsScreenState) {
                         .fillMaxWidth()
                         .clickable {
                             state.onTeamClicked(item)
-                        }, verticalAlignment = Alignment.Top) {
+                        }, verticalAlignment = Alignment.CenterVertically
+                ) {
                     Image(
                         painter = rememberImagePainter(
                             data = item.icon,
@@ -75,7 +83,8 @@ fun SearchTeamsScreen(state: SearchTeamsScreenState) {
 
                     Text(
                         text = item.name,
-                        style = H1,
+                        style = MaterialTheme.typography.h3,
+                        color = MaterialTheme.appColors.textPrimary,
                         modifier = Modifier.weight(1f)
                     )
 
@@ -83,7 +92,9 @@ fun SearchTeamsScreen(state: SearchTeamsScreenState) {
                         state.onFavoriteClicked(item)
                     }) {
                         Icon(
-                            imageVector = if (item.isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+                            painter = if (item.isFavorite) painterResource(id = R.drawable.ic_favorite_filled_red) else painterResource(
+                                id = R.drawable.ic_favorite_border_red
+                            ),
                             contentDescription = null,
                             tint = Color.Red
                         )
@@ -95,7 +106,7 @@ fun SearchTeamsScreen(state: SearchTeamsScreenState) {
         if (model.isProgressVisible) {
             CircularProgressIndicator(
                 Modifier.align(Alignment.Center),
-                color = Purple200
+                color = MaterialTheme.appColors.progressIndicatorColor
             )
         }
     }
@@ -105,6 +116,17 @@ fun SearchTeamsScreen(state: SearchTeamsScreenState) {
 
 @Composable
 @Preview
-fun SearchTeamsScreenPreview() {
-    SearchTeamsScreen(SearchTeamsScreenState.preview())
+fun SearchTeamsScreenLightPreview() {
+    FootballFactsTheme(darkTheme = false) {
+        SearchTeamsScreen(SearchTeamsScreenState.preview())
+    }
+}
+
+
+@Composable
+@Preview
+fun SearchTeamsScreenDarkPreview() {
+    FootballFactsTheme(darkTheme = true) {
+        SearchTeamsScreen(SearchTeamsScreenState.preview())
+    }
 }
