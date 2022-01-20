@@ -22,7 +22,23 @@ android {
     }
 
     buildTypes {
+
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        def apiKey = "${properties.getProperty('API_KEY')}"
+        def apiKeyName = "API_KEY"
+        def apiKeyType = "String"
+        if(!properties.containsKey(apiKeyName)){
+            throw new GradleException('API_KEY must be set in local.properties')
+        }
+        debug{
+            buildConfigField apiKeyType, apiKeyName, apiKey
+            debuggable true
+        }
+
         release {
+            buildConfigField apiKeyType, apiKeyName, apiKey
+            debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -112,4 +128,13 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+}
+
+
+task checkApiKey() {
+    doLast {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+        assert properties.containsKey('API_KEY')
+    }
 }
