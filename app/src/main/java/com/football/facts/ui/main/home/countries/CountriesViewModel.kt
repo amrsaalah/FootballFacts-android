@@ -7,16 +7,14 @@ import com.football.facts.domain.valueObject.Resource
 import com.football.facts.domain.valueObject.Status
 import com.football.facts.ui.base.BaseViewModel
 import com.football.facts.ui.utils.navigation.NavigationManager
-import com.football.facts.ui.utils.notification.ToastManager
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class CountriesViewModel @Inject constructor(
     private val getCountriesUseCase: GetCountriesUseCase,
-    private val toastManager: ToastManager,
     private val navigationManager: NavigationManager
 ) : BaseViewModel(), CountriesScreenState {
 
@@ -58,6 +56,7 @@ class CountriesViewModel @Inject constructor(
 
 
     fun getCountries() {
+        Timber.d("getCountries: ")
         countriesUseCase.value = getCountriesUseCase()
     }
 }

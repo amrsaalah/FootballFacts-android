@@ -5,7 +5,6 @@ import com.football.facts.domain.entity.Country
 import com.football.facts.domain.repository.FootballRepository
 import com.football.facts.domain.valueObject.Resource
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class GetCountriesUseCase @Inject constructor(

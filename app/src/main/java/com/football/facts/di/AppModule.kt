@@ -2,6 +2,7 @@ package com.football.facts.di
 
 import android.content.Context
 import com.football.facts.ui.utils.broadcast.BroadcastManager
+import com.football.facts.ui.utils.eventBus.EventBus
 import com.football.facts.ui.utils.navigation.NavigationManager
 import com.football.facts.ui.utils.notification.ToastManager
 import com.football.facts.ui.utils.resource.ResourceProvider
@@ -18,25 +19,31 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun provideNavigationManager() : NavigationManager {
+    fun provideNavigationManager(): NavigationManager {
         return NavigationManager()
     }
 
     @Singleton
     @Provides
-    fun provideToastManager() : ToastManager {
+    fun provideToastManager(): ToastManager {
         return ToastManager()
     }
 
     @Singleton
     @Provides
-    fun provideResourceProvider(@ApplicationContext context: Context) : ResourceProvider{
+    fun provideResourceProvider(@ApplicationContext context: Context): ResourceProvider {
         return ResourceProvider(context)
     }
 
     @Singleton
     @Provides
-    fun provideBroadcastManager() : BroadcastManager{
+    fun provideBroadcastManager(): BroadcastManager {
         return BroadcastManager()
+    }
+
+    @Singleton
+    @Provides
+    fun provideEventBus(): EventBus {
+        return EventBus()
     }
 }

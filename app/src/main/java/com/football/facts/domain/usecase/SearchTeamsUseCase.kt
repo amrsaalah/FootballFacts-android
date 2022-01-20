@@ -16,7 +16,7 @@ class SearchTeamsUseCase @Inject constructor(
         return querySearch.debounce(seconds(0.5)).flatMapLatest { query ->
             if (query.isEmpty() || query.length < 4) return@flatMapLatest flowOf(Resource.error())
             safeCall {
-                footballRepository.searchTeams(query)
+                footballRepository.searchTeams(query.trim())
             }
         }
     }

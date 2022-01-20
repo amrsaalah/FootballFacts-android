@@ -27,7 +27,7 @@ class LeaguesViewModel @Inject constructor(
 
     fun init(country: Country) {
         this.country = country
-        leaguesUseCase.value = getLeaguesByCountryCodeUseCase(country.code)
+        refresh()
     }
 
     override fun onLeagueClicked(item: LeagueDisplayItem) {
@@ -73,4 +73,9 @@ class LeaguesViewModel @Inject constructor(
             )
         }
     }.stateIn(viewModelScope, SharingStarted.Lazily, LeaguesDisplay.initial())
+
+
+    fun refresh() {
+        leaguesUseCase.value = getLeaguesByCountryCodeUseCase(country.code)
+    }
 }

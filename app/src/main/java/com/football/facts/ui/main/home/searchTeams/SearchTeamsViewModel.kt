@@ -5,28 +5,41 @@ import com.football.facts.domain.entity.Team
 import com.football.facts.domain.usecase.SearchTeamsUseCase
 import com.football.facts.domain.usecase.UpdateTeamFavoriteUseCase
 import com.football.facts.ui.base.BaseViewModel
-import com.football.facts.ui.main.home.leagues.LeagueDisplayItem
+import com.football.facts.ui.utils.eventBus.AppEvent
+import com.football.facts.ui.utils.eventBus.EventBus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class SearchTeamsViewModel @Inject constructor(
-    private val searchTeamsUseCase: SearchTeamsUseCase ,
-    private val updateTeamFavoriteUseCase: UpdateTeamFavoriteUseCase
+    private val searchTeamsUseCase: SearchTeamsUseCase,
+    private val updateTeamFavoriteUseCase: UpdateTeamFavoriteUseCase,
+    private val eventBus: EventBus
 ) : BaseViewModel(), SearchTeamsScreenState {
 
 
+    init {
+        viewModelScope.launch {
+            eventBus.events.collectLatest { event ->
+                if (event == AppEvent.REFRESH_SEARCH_TEAMS) {
+                    refresh()
+                }
+            }
+        }
+    }
+
     private val searchQuery = MutableStateFlow("")
-    private val teamsHashMap : LinkedHashMap<TeamDisplayItem , Team> = linkedMapOf()
+    private val teamsHashMap: LinkedHashMap<TeamDisplayItem, Team> = linkedMapOf()
     private val currentFavoriteItem = MutableStateFlow<Team?>(null)
 
     override val searchTeamsDisplay: StateFlow<SearchTeamsDisplay> = combine(
         searchTeamsUseCase(searchQuery),
-        searchQuery ,
+        searchQuery,
         currentFavoriteItem
-    ) { res, query , currentFavTeam ->
+    ) { res, query, currentFavTeam ->
         val teams = res.data?.map { team ->
 
             val newIsFavorite = if (team.id == currentFavTeam?.id) {
@@ -46,7 +59,7 @@ class SearchTeamsViewModel @Inject constructor(
         SearchTeamsDisplay(
             isProgressVisible = res.isLoading(),
             teams = teams,
-            querySearch = query
+            querySearch = query.trim()
         )
     }.stateIn(viewModelScope, SharingStarted.Eagerly, SearchTeamsDisplay.initial())
 
@@ -68,5 +81,12 @@ class SearchTeamsViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+
+    private fun refresh() {
+        currentFavoriteItem.value = null
+        teamsHashMap.clear()
+        searchQuery.value = "${searchQuery.value} "
     }
 }

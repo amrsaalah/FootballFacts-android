@@ -9,6 +9,7 @@ import com.football.facts.ui.base.BaseFragment
 import com.football.facts.ui.utils.extensions.collectWithLifecycle
 import com.football.facts.ui.utils.viewBinding.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
@@ -29,11 +30,12 @@ class FavoritesFragment : BaseFragment(R.layout.fragment_favorites) {
         binding.recyclerViewLeagues.adapter = leaguesAdapter
         binding.recyclerViewTeams.adapter = teamsAdapter
 
-        collectWithLifecycle(viewModel.favoritesDisplay){
+        collectWithLifecycle(viewModel.favoritesDisplay) {
             leaguesAdapter.submitList(it.favoriteLeagues)
             teamsAdapter.submitList(it.favoriteTeams)
         }
-    }
 
+        viewModel.refresh()
+    }
 
 }

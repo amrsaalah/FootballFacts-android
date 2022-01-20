@@ -6,8 +6,8 @@ import com.football.facts.domain.entity.Country
 import com.football.facts.domain.entity.Favorite
 import com.football.facts.domain.entity.League
 import com.football.facts.domain.entity.Team
-import com.football.facts.domain.valueObject.EFavoriteType
-import com.football.facts.domain.valueObject.EFavoriteType.*
+import com.football.facts.domain.valueObject.EFavoriteType.LEAGUE
+import com.football.facts.domain.valueObject.EFavoriteType.TEAM
 import com.football.facts.domain.valueObject.ELeagueType
 import com.football.facts.domain.valueObject.FootballStatus
 import com.football.facts.network.source.FootballNetworkDataSource
@@ -126,9 +126,5 @@ class FootballRepository @Inject constructor(
                 type = LEAGUE
             )
         }
-    }
-
-    suspend fun removeFavorite(favorite: Favorite){
-
     }
 }
