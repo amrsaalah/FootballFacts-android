@@ -12,12 +12,14 @@ class SearchTeamsUseCase @Inject constructor(
     private val footballRepository: FootballRepository
 ) : BaseUseCase() {
 
-    operator fun invoke(querySearch: MutableStateFlow<String>): Flow<Resource<List<Team>>> {
+    operator fun invoke(querySearch: MutableStateFlow<QuerySearchHolder>): Flow<Resource<List<Team>>> {
         return querySearch.debounce(seconds(0.5)).flatMapLatest { query ->
-            if (query.isEmpty() || query.length < 4) return@flatMapLatest flowOf(Resource.error())
+            if (query.query.isEmpty() || query.query.length < 4) return@flatMapLatest flowOf(Resource.error())
             safeCall {
-                footballRepository.searchTeams(query.trim())
+                footballRepository.searchTeams(query.query.trim())
             }
         }
     }
+
+    data class QuerySearchHolder(val query : String , val isRefresh : Boolean = false)
 }

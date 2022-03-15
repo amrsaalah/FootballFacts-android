@@ -10,7 +10,6 @@ import com.football.facts.ui.utils.eventBus.EventBus
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,7 +30,7 @@ class SearchTeamsViewModel @Inject constructor(
         }
     }
 
-    private val searchQuery = MutableStateFlow("")
+    private val searchQuery = MutableStateFlow(SearchTeamsUseCase.QuerySearchHolder(""))
     private val teamsHashMap: LinkedHashMap<TeamDisplayItem, Team> = linkedMapOf()
     private val currentFavoriteItem = MutableStateFlow<Team?>(null)
 
@@ -59,13 +58,13 @@ class SearchTeamsViewModel @Inject constructor(
         SearchTeamsDisplay(
             isProgressVisible = res.isLoading(),
             teams = teams,
-            querySearch = query.trim()
+            querySearch = query.query
         )
     }.stateIn(viewModelScope, SharingStarted.Eagerly, SearchTeamsDisplay.initial())
 
 
     override fun onSearchQueryChanged(querySearch: String) {
-        searchQuery.value = querySearch
+        searchQuery.value = SearchTeamsUseCase.QuerySearchHolder(querySearch)
     }
 
     override fun onTeamClicked(item: TeamDisplayItem) {
@@ -87,6 +86,6 @@ class SearchTeamsViewModel @Inject constructor(
     private fun refresh() {
         currentFavoriteItem.value = null
         teamsHashMap.clear()
-        searchQuery.value = "${searchQuery.value} "
+        searchQuery.value = searchQuery.value.copy(isRefresh = true)
     }
 }
