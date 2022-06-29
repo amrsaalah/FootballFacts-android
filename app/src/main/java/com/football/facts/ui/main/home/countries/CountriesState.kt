@@ -1,42 +1,20 @@
 package com.football.facts.ui.main.home.countries
 
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 
-interface CountriesScreenState {
-    val countriesDisplay: StateFlow<CountriesDisplay>
-    fun onCountryClicked(item: CountryDisplayItem)
-
-    companion object {
-        fun preview(): CountriesScreenState {
-            return object : CountriesScreenState {
-
-                override val countriesDisplay: MutableStateFlow<CountriesDisplay> = MutableStateFlow(
-                    CountriesDisplay.preview()
-                )
-
-                override fun onCountryClicked(item: CountryDisplayItem) {
-
-                }
-            }
-        }
-    }
-}
-
-data class CountriesDisplay(
+data class CountriesState(
     val isProgressVisible: Boolean,
     val countries: List<CountryDisplayItem>
 ) {
     companion object {
-        fun initial(): CountriesDisplay {
-            return CountriesDisplay(
+        fun initial(): CountriesState {
+            return CountriesState(
                 isProgressVisible = false,
                 countries = listOf()
             )
         }
 
-        fun preview(): CountriesDisplay {
-            return CountriesDisplay(
+        fun preview(): CountriesState {
+            return CountriesState(
                 isProgressVisible = true,
                 countries = listOf(
                     CountryDisplayItem(

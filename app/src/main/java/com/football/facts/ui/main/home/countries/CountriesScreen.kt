@@ -24,8 +24,8 @@ import com.football.facts.ui.theme.FootballFactsTheme
 import com.football.facts.ui.theme.appColors
 
 @Composable
-fun CountriesScreen(state: CountriesScreenState) {
-    val model by state.countriesDisplay.collectAsState()
+fun CountriesScreen(viewModel: ICountriesViewModel) {
+    val model by viewModel.countriesState.collectAsState()
     Box(
         Modifier
             .fillMaxSize()
@@ -40,7 +40,7 @@ fun CountriesScreen(state: CountriesScreenState) {
                     Modifier
                         .fillMaxWidth()
                         .clickable {
-                            state.onCountryClicked(item)
+                            viewModel.onEvent(OnCountryClickedEvent(item))
                         }) {
                     Image(
                         painter = rememberImagePainter(
@@ -81,7 +81,7 @@ fun CountriesScreen(state: CountriesScreenState) {
 @Preview
 fun CountriesScreenLightPreview() {
     FootballFactsTheme(darkTheme = false) {
-        CountriesScreen(CountriesScreenState.preview())
+        CountriesScreen(PreviewCountries())
     }
 
 }
@@ -91,6 +91,6 @@ fun CountriesScreenLightPreview() {
 @Preview
 fun CountriesScreenDarkPreview() {
     FootballFactsTheme(darkTheme = true) {
-        CountriesScreen(CountriesScreenState.preview())
+        CountriesScreen(PreviewCountries())
     }
 }
