@@ -22,6 +22,7 @@ class HomeViewModel @Inject constructor(
     private val resourceProvider: ResourceProvider
 ) : BaseViewModel() {
 
+    // change 3
 
     val isReady = checkApiStatusUseCase().map {
         if(it.status == Status.SUCCESS && it.data == false){
