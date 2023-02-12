@@ -16,6 +16,7 @@ class FootballApplication : Application() {
     val activityLifecycleCallbacks = FootballActivityLifecycleCallbacks()
 
     // change1
+    // change 2
     override fun onCreate() {
         super.onCreate()
         instance = this
