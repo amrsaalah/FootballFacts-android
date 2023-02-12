@@ -15,6 +15,7 @@ import timber.log.Timber.DebugTree
 class FootballApplication : Application() {
     val activityLifecycleCallbacks = FootballActivityLifecycleCallbacks()
 
+    // change1
     override fun onCreate() {
         super.onCreate()
         instance = this
